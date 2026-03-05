@@ -1,14 +1,14 @@
 ````md
-# FedRL — Federated Reinforcement Learning on a Rehab Simulation (DQN / Dueling-DQN)
+# **FedRL — Federated Reinforcement Learning on a Rehab Simulation (DQN / Dueling-DQN)**
 
-FedRL is a **federated reinforcement learning** prototype that trains a shared policy across multiple heterogeneous clients **without centralizing trajectories**.  
+**FedRL** is a federated reinforcement learning prototype that trains a shared policy across multiple heterogeneous clients **without centralizing trajectories**.  
 The project simulates a **robot-assisted rehabilitation** setting where each client represents a different “site” (e.g., noisier outcomes, faster fatigue accumulation, slower motivation recovery). Each client trains locally with **DQN-style learning** (experience replay + target network), and the server aggregates model updates using **FedAvg**.
 
 > **Why this matters:** In privacy-constrained domains (healthcare, mobile, edge), you often can’t pool raw interaction data. FedRL shows an end-to-end pipeline for “learn together, keep data local.”
 
 ---
 
-## ✨ Key Features
+## ✨ **Key Features**
 
 - **Rehab simulation environment** with patient dynamics:
   - latent skill progression, fatigue accumulation, motivation adaptation
@@ -31,9 +31,9 @@ The project simulates a **robot-assisted rehabilitation** setting where each cli
 
 ---
 
-## 🧠 System Overview
+## 🧠 **System Overview**
 
-### Architecture (high level)
+### **Architecture (high level)**
 
 ```mermaid
 flowchart TB
@@ -57,13 +57,13 @@ flowchart TB
 
 ---
 
-## 📁 Repository Structure
+## 📁 **Repository Structure**
 
 > **Important:** Scripts use local imports like `from env import RehabEnv`, so run them **from inside the `FedRL/` folder**.
 
-```
+```text
 FedRL/
-  config.py                 # all hyperparameters + experiment grids
+  config.py                 # hyperparameters + experiment grids
   env.py                    # Patient + RehabEnv simulator
   model.py                  # DQN + DuelingDQN networks
   buffer.py                 # replay buffer (uniform)
@@ -76,32 +76,32 @@ FedRL/
   plots.py                  # plotting utilities
   plots_results.py          # example plotting script
   sumtree.py                # advanced PER + n-step + Double DQN (standalone path)
-  main.py                   # demo runner (see "Known Issues" below)
-  feasibility_results.csv   # example results (generated output)
+  main.py                   # demo runner (see Known Issues below)
+  feasibility_results.csv   # example output (generated)
 ```
 
 ---
 
-## ⚙️ Setup
+## ⚙️ **Setup**
 
-### Requirements
+### **Requirements**
 
 * Python 3.9+ (recommended)
 * `torch`, `numpy`, `tqdm`, `matplotlib`
 
-### Install
+### **Install**
 
 ```bash
 pip install numpy tqdm matplotlib torch
 ```
 
-> For GPU installs of PyTorch, follow the official PyTorch install instructions for your CUDA version.
+> For GPU installs of PyTorch, follow the official PyTorch installation steps for your CUDA version.
 
 ---
 
-## 🚀 Quickstart
+## 🚀 **Quickstart**
 
-### 1) Run a small federated training run (recommended entrypoint)
+### **1) Run a small federated training run (recommended entrypoint)**
 
 This uses the most consistent experiment path (`feasibility.py` uses **DuelingDQN** end-to-end):
 
@@ -123,7 +123,7 @@ print("History (median reward per round):", history)
 PY
 ```
 
-### 2) Run the full feasibility sweep (writes CSV continuously)
+### **2) Run the full feasibility sweep (writes CSV continuously)**
 
 ```bash
 cd FedRL
@@ -134,7 +134,7 @@ Outputs:
 
 * `feasibility_results.csv` (and a `_backup.csv` if the file is locked)
 
-### 3) Run additional experiments
+### **3) Run additional experiments**
 
 ```bash
 cd FedRL
@@ -153,23 +153,23 @@ PY
 
 ---
 
-## 🧪 Environment, State, Actions, Reward
+## 🧪 **Environment, State, Actions, Reward**
 
-### State (6D)
+### **State (6D)**
 
 `[skill, avg_effort, fatigue, motivation, t_norm, remaining_norm]`
 
 * Values are clipped/normalized to keep learning stable.
 * Time features are normalized to `[0,1]`.
 
-### Action space
+### **Action space**
 
 Discrete difficulty levels:
 
 * `action ∈ {0, 1, ..., NUM_ROBOTS-1}`
 * mapped to difficulty via: `difficulty = action / NUM_ROBOTS`
 
-### Reward
+### **Reward**
 
 Reward is shaped to balance success with human factors:
 
@@ -185,7 +185,7 @@ REWARD_WEIGHTS = (w1, w2, w3)
 
 ---
 
-## 📊 Evaluation
+## 📊 **Evaluation**
 
 Primary metric:
 
@@ -197,7 +197,7 @@ Why median?
 
 ---
 
-## 🔬 Results (Example)
+## 🔬 **Results (Example)**
 
 A sample `feasibility_results.csv` is included in this repo. It records runs across:
 
@@ -215,7 +215,7 @@ python feasibility.py
 
 ---
 
-## 🧩 Configuration
+## 🧩 **Configuration**
 
 All knobs live in `config.py`, including:
 
@@ -226,7 +226,7 @@ All knobs live in `config.py`, including:
 
 ---
 
-## ⚠️ Known Issues / Notes (Read This)
+## ⚠️ **Known Issues / Notes**
 
 This repo is intentionally “research-prototype style” and includes a few rough edges:
 
@@ -255,7 +255,7 @@ This repo is intentionally “research-prototype style” and includes a few rou
 
 ---
 
-## 🛠️ Roadmap / Improvements (Great for extending or publishing)
+## 🛠️ **Roadmap / Improvements**
 
 * Integrate `sumtree.py` into the main training path:
 
@@ -267,17 +267,20 @@ This repo is intentionally “research-prototype style” and includes a few rou
 
 ---
 
-## 📜 License
+## 📜 **License**
 
 Add a license if you plan to open-source publicly (MIT/Apache-2.0 are common).
 
 ---
 
-## 🙌 Acknowledgements
+## 🙌 **Acknowledgements**
 
-Built as a learning + research prototype to explore the intersection of:
+Built as a learning + research prototype to explore:
 
 * federated learning
 * reinforcement learning
 * non-IID client heterogeneity
 * privacy-utility tradeoffs
+
+```
+```
